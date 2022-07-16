@@ -1,0 +1,17 @@
+server.port: 8085
+spring:
+    cloud.stream:
+        function.definition: bookOrder
+        kafka:
+            binder:
+                brokers: localhost:9092
+                autoCreateTopics: false
+            bindings:
+                bookOrder-in-0:
+                    enableDlq: false
+        bindings:
+            bookOrder-out-0:
+                destination: book-event
+                contentType: application/json
+            bookOrder-in-0:
+                destination: book-event
